@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import one.foremost.lab.customer.model.Person;
 import one.foremost.lab.customer.service.PersonService;
 
@@ -28,6 +30,7 @@ import one.foremost.lab.customer.service.PersonService;
  */
 @RequestMapping("api/v1/persons")
 @RestController
+@Api(value = "Endpoints to manage Person")
 public class PersonController {
 
 	private PersonService personService;
@@ -37,26 +40,44 @@ public class PersonController {
 		this.personService = personService;
 	}
 
+	/*
+	 * @param person The person object containing the Person information to be inserted into the application
+	 */
 	@PostMapping
 	public void addPerson(@Valid @NonNull @RequestBody Person person) {
 		this.personService.addPerson(person);
 	}
 
+	/**
+	 * @return
+	 */
+	@ApiOperation( value = "Return a list of people", response = Person[].class)
 	@GetMapping
 	public List<Person> getAllPeople() {
 		return this.personService.getAllPeople();
 	}
 
+	/**
+	 * @param id
+	 * @return
+	 */
 	@GetMapping(path = "{id}")
 	public Person getPersonById(@PathVariable("id") UUID id) {
 		return this.personService.getPersonById(id).orElse(null);
 	}
 
+	/**
+	 * @param id
+	 */
 	@DeleteMapping(path = "{id}")
 	public void deletePersonById(@PathVariable("id") UUID id) {
 		this.personService.deletePerson(id);
 	}
 
+	/**
+	 * @param id
+	 * @param personToUpdate
+	 */
 	@PutMapping(path = "{id}")
 	public void updatePerson(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Person personToUpdate) {
 		this.personService.updatePerson(id, personToUpdate);
