@@ -1,6 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    banner-mode: off
+    
 app:
-    datasource:
-        jdbc-url: jdbc:postgresql://localhost:5432/demodb
-        username: postgres
-        password: password
-        pool-size: 30
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/customerdb
+    username: postgres
+    password: password
+    pool-size: 30
