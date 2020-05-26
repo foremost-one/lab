@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    banner-mode: off
+
+logging:
+  file: ./logs/customers.log
+  level:
+    org.springframework.web: DEBUG
+    one.foremost.lab.customer: DEBUG
+        
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/customerdb
+    username: postgres
+    password: password
+    pool-size: 30
